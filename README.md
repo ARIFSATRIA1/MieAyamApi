@@ -18,7 +18,7 @@ This repository contains the public API using Node.js and Express. It is designe
 ### Endpoint Documentation
 
 ## Base URL
-     **URL:** `http://34.138.0.114:8080/api`
+     **URL:** `https://mie-ayam-api.vercel.app/api`
 
 
 
@@ -26,7 +26,7 @@ This repository contains the public API using Node.js and Express. It is designe
 
     -Method GET
 
-    **URL:** `http://34.138.0.114:8080/api/mieayam`
+    **URL:** `https://mie-ayam-api.vercel.app/api/mieayam`
 
     - Success Response 
 
@@ -60,7 +60,7 @@ This repository contains the public API using Node.js and Express. It is designe
 
     - Method GET       
 
-    **URL:** `http://34.138.0.114:8080/api/mieayam/:nameplace`
+    **URL:** `https://mie-ayam-api.vercel.app/api/mieayam/:nameplace`
 
     This endpoint is used to retrieve specific articles stored in the database. The request should include a route parameter named :params to specify the unique identifier of the article being requested. Upon successful execution, the response will include the article's details.
 
@@ -84,7 +84,7 @@ This repository contains the public API using Node.js and Express. It is designe
 
     -Method GET
 
-     **URL:** `http://34.138.0.114:8080/api/mieayam/city/:city` 
+     **URL:** `https://mie-ayam-api.vercel.app/api/mieayam/city/:city` 
 
      This endpoint is used to retrieve specific articles stored in the database. The request should include a route parameter named :city to specify the unique identifier of the article being requested. Upon successful execution, the response will include the article's details.
 
