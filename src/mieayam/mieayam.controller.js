@@ -19,6 +19,10 @@ const supabase = createClient(
 
 const router = require("express").Router();
 
+router.get("/", async(req, res) => {
+    res.send("Hello World")
+})
+
 router.get("/mieayam", async(req, res) => {
     try {
 

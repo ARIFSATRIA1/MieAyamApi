@@ -10,8 +10,6 @@ const findMieAyam = async({ offset, limit }) => {
     } catch (error) {
         return { data: null, error };
     }
-    console.log(error.message
-    );
 };
 
 const findMieAyamCount = async() => {
