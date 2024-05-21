@@ -113,10 +113,10 @@ This repository contains the public API using Node.js and Express. It is designe
     ```
 
 
-    -Credit For Give List Mie Ayam
-        -Benediktus
-        -Hanif 
-        -Yaffi  
+    ## Credit For Give List Mie Ayam
+    - Benediktus
+    - Hanif 
+    - Yaffi  
     
 
 
