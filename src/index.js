@@ -23,3 +23,5 @@ app.use("/api", mieAyamController);
 app.listen(PORT, () => {
     console.log("Express API Running in Port " + PORT);
 })
+
+module.exports = app;
