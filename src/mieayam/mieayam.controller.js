@@ -98,6 +98,8 @@ router.post("/mieayam",upload.single("file"), async(req, res) => {
         }
 
 
+
+
         const { data: images } = supabase.storage
         .from("mieayam")
         .getPublicUrl(data.path);
@@ -108,8 +110,8 @@ router.post("/mieayam",upload.single("file"), async(req, res) => {
             adress: adress.toLowerCase(),
             city: city.toLowerCase(),
             image: images.publicUrl,
-            lat: lat.toLowerCase(),
-            lon: lon.toLowerCase(),
+            lat: lat,
+            lon: lon,
         };
 
 
