@@ -1,10 +1,24 @@
 const prisma = require("../db/prisma");
 
-const findMieAyam = async() => {
-    const mieAyam =  prisma.mieAyam.findMany();
-
-    return mieAyam;
+const findMieAyam = async({ offset, limit }) => {
+    try {
+        const mieAyam = await prisma.mieAyam.findMany({
+            skip: offset,
+            take: limit
+        });
+        return { data: mieAyam, error: null };
+    } catch (error) {
+        return { data: null, error };
+    }
+    console.log(error.message
+    );
 };
+
+const findMieAyamCount = async() => {
+    const count = await prisma.mieAyam.count();
+    return count;
+
+}
 
 const insertMieAyam = async(mieAyamData) => {
     const mieAyam = await prisma.mieAyam.create({
@@ -47,5 +61,6 @@ module.exports = {
     findMieAyam,
     insertMieAyam,
     findMieAyamByName,
-    filterMieAyamByCity
+    filterMieAyamByCity,
+    findMieAyamCount,
 };

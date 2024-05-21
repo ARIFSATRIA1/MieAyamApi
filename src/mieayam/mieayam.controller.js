@@ -3,6 +3,7 @@ const {
     createMieAyam,
     getMieAyamByName,
     getFilterMieAyamByCity,
+    getMieAyamCount,
 } = require("./mieayam.service");
 
 const {decode} = require("base64-arraybuffer");
@@ -20,17 +21,43 @@ const router = require("express").Router();
 
 router.get("/mieayam", async(req, res) => {
     try {
-        
-        const mieAyam = await getAllMieAyam();
+
+        const page = parseInt(req.query.page) || parseInt(1);
+        const limit = parseInt(req.query.limit) || parseInt(5);
+
+        const offset = (page - 1) * limit || 0;
+
+        const {data: mieAyam, error} = await getAllMieAyam({ offset, limit });
+
+        if (error) {
+            throw error;
+        }
+
+        const totalRecords = await getMieAyamCount();
+
+        const totalPages = Math.ceil(totalRecords / limit);
 
         res.send({
             data: {
                 mieAyam
             },
+            pagination: {
+                totalRecords,
+                totalPages,
+                currentPages: page,
+                pageSize: limit
+            },
             message: "Fetching Success"
-        })
+        });
+
+
     } catch (error) {
-        res.status(500).send(error.message)
+        res.status(500).send({
+            data: {
+                error: "500"
+            },
+            message: error.message
+        })
     }
 }); 
 
@@ -41,11 +68,15 @@ router.get("/mieayam/:nameplace", async(req, res) => {
 
         const mieAyam = await getMieAyamByName(nameplace);
 
+        if (!mieAyam) {
+            throw Error ("name place mie ayam not found")
+        }
+
         res.send(mieAyam);
     } catch (error) {
         res.status(500).send({
             data: {
-                error: error.message
+                error: ("name place mie ayam not found ")
             },
             message: "Internal Server Erorr"
         })
@@ -79,6 +110,7 @@ router.post("/mieayam",upload.single("file"), async(req, res) => {
         if (!file) {
             return res.status(400).send({
                 data: {
+                    errorCode: "400",
                     message: "Please Upload A File"
                 }
             })
@@ -94,11 +126,13 @@ router.post("/mieayam",upload.single("file"), async(req, res) => {
 
         
         if (error) {
-            throw error;
+            return res.status(400).send({
+                data: {
+                    errorCode: "400",
+                    message: error.message
+                }
+            })
         }
-
-
-
 
         const { data: images } = supabase.storage
         .from("mieayam")
