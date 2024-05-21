@@ -106,68 +106,68 @@ router.get("/mieayam/city/:city", async(req, res) => {
 })
 
 
-router.post("/mieayam",upload.single("file"), async(req, res) => {
-    try {
-        const file = req.file
-        const {nameplace, adress, city,lat, lon} = req.body
+// router.post("/mieayam",upload.single("file"), async(req, res) => {
+//     try {
+//         const file = req.file
+//         const {nameplace, adress, city,lat, lon} = req.body
 
-        if (!file) {
-            return res.status(400).send({
-                data: {
-                    errorCode: "400",
-                    message: "Please Upload A File"
-                }
-            })
-        }
+//         if (!file) {
+//             return res.status(400).send({
+//                 data: {
+//                     errorCode: "400",
+//                     message: "Please Upload A File"
+//                 }
+//             })
+//         }
 
-        const fileBase64 = decode(file.buffer.toString("base64"));
+//         const fileBase64 = decode(file.buffer.toString("base64"));
 
-        const {data, error} = await supabase.storage
-            .from("mieayam")
-            .upload(file.originalname, fileBase64, {
-                contentType: "image/png",
-            });
+//         const {data, error} = await supabase.storage
+//             .from("mieayam")
+//             .upload(file.originalname, fileBase64, {
+//                 contentType: "image/png",
+//             });
 
         
-        if (error) {
-            return res.status(400).send({
-                data: {
-                    errorCode: "400",
-                    message: error.message
-                }
-            })
-        }
+//         if (error) {
+//             return res.status(400).send({
+//                 data: {
+//                     errorCode: "400",
+//                     message: error.message
+//                 }
+//             })
+//         }
 
-        const { data: images } = supabase.storage
-        .from("mieayam")
-        .getPublicUrl(data.path);
-
-
-        const mieAyamData = {
-            nameplace:nameplace.toLowerCase(), 
-            adress: adress.toLowerCase(),
-            city: city.toLowerCase(),
-            image: images.publicUrl,
-            lat: lat,
-            lon: lon,
-        };
+//         const { data: images } = supabase.storage
+//         .from("mieayam")
+//         .getPublicUrl(data.path);
 
 
-        await createMieAyam(mieAyamData);
+//         const mieAyamData = {
+//             nameplace:nameplace.toLowerCase(), 
+//             adress: adress.toLowerCase(),
+//             city: city.toLowerCase(),
+//             image: images.publicUrl,
+//             lat: lat,
+//             lon: lon,
+//         };
 
-        res.status(200).send({
-            data: mieAyamData,
-        });
 
-    } catch (error) {
-        res.status(500).send({
-            data: {
-                erorr: error.message,
-            }
-        })
-    }
+//         await createMieAyam(mieAyamData);
 
-});
+//         res.status(200).send({
+//             data: mieAyamData,
+//         });
+
+//     } catch (error) {
+//         res.status(500).send({
+//             data: {
+//                 erorr: error.message,
+//             }
+//         })
+//     }
+
+// });
 
 module.exports = router;
 
