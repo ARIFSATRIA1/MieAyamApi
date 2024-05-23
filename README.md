@@ -28,6 +28,10 @@ This repository contains the public API using Node.js and Express. It is designe
 
     **URL:** `https://mie-ayam-api.vercel.app/api/mieayam`
 
+    - params
+        - page 
+        - limit 
+
     - Success Response 
 
     ```json
