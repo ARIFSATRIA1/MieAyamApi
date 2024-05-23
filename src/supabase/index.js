@@ -4,7 +4,7 @@
 //     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 // );
 // const dotenv = require("dotenv");
-// dotenv.config();
+// dotenv.config();s
 
 // module.exports = supabase;
 
