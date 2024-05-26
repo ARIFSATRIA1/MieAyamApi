@@ -2,11 +2,24 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
+const rateLimit = require("express-rate-limit")
+
+
+const limiter = rateLimit({
+    windowsMs: 10 * 60 * 1000,
+    limit: 75,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+})
+
+
 
 let corsOptions  = {
     origin: "http://localhost:2000"
 }
 
+
+app.use(limiter)
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true}));
 
